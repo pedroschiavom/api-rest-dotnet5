@@ -1,25 +1,26 @@
-﻿using FilmesAPI.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using RouteAttribute = Microsoft.AspNetCore.Components.RouteAttribute;
+using FilmesAPI.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
 
 namespace FilmesAPI.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
 
     public class FilmeController : ControllerBase
     {
         private static List<Filme> filmes = new List<Filme>();
 
         [HttpPost]
-
         public void AdicionaFilme([FromBody]Filme filme)
         {
-            filmes.Add(filme);
-            Console.WriteLine(filme.Titulo);
+            if (!string.IsNullOrEmpty(filme.Titulo))
+                filmes.Add(filme);
+            else
+                Console.WriteLine("Não permitido título em branco");
         }
     }
 }
